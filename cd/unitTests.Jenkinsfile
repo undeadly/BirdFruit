@@ -32,7 +32,7 @@ pipeline {
                            -e "BUILD_NUMBER=${BUILD_NUMBER}" \\
                            --rm -v $(pwd):/home/jenkins/application \\
                            022103483154.dkr.ecr.us-west-2.amazonaws.com/android-platform:latest@sha256:$dockerHash \\
-                           sh -c "./gradlew build'''
+                           sh -c "./gradlew build"'''
             }
         }
     }
