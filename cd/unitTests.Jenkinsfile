@@ -21,8 +21,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash -xe
-                      ./gradlew build    
-		   '''
+                      ./gradlew build
+		        '''
             }
         }
     }
