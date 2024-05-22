@@ -12,6 +12,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash -xe
+                       which java
+                       java -version
                       ./gradlew build
 		        '''
             }
