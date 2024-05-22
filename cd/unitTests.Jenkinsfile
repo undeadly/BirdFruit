@@ -26,11 +26,12 @@ pipeline {
 
                        # sha hash can be found in the latest build here
                        # https://ci.corp.lookout.com/job/android-platform-build-container
-                       # docker image with Java 11
+                       # docker image with Java 17
                        dockerHash=ef90fb8cb669256e7f89a0d847fcdc90900de4b3136ad2c2d7f23567a4b12f81
+
                        docker run \\
                            -e "BUILD_NUMBER=${BUILD_NUMBER}" \\
-                           --rm -v $(pwd):/home/jenkins/application \\
+                           --rm -v "$(pwd):/home/jenkins/application" \\
                            022103483154.dkr.ecr.us-west-2.amazonaws.com/android-platform:latest@sha256:$dockerHash \\
                            sh -c "./gradlew build"'''
             }
