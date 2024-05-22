@@ -67,4 +67,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Add Mockito dependencies
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4") // for mocking final classes
+    testImplementation("org.mockito:mockito-junit-jupiter:3.12.4")
 }
