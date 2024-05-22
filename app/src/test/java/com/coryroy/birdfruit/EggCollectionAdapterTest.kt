@@ -1,17 +1,21 @@
 package com.coryroy.birdfruit.adapters
 
+import android.os.Looper
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.coryroy.birdfruit.data.EggCollection
 import com.coryroy.birdfruit.viewmodels.EggCollectionViewModel
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockedConstruction
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.mockStatic
 
 @RunWith(MockitoJUnitRunner::class)
 class EggCollectionAdapterTest {
@@ -27,8 +31,15 @@ class EggCollectionAdapterTest {
     @Mock
     private lateinit var lifecycleOwner: LifecycleOwner
 
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
+
     @Before
     fun setup() {
+        mockStatic(Looper::class.java).use { mockedLooper ->
+            val mainLooperMock = mock(Looper::class.java)
+            mockedLooper.`when`<Any> { Looper.getMainLooper() }.thenReturn(mainLooperMock)
+        }
         adapter = EggCollectionAdapter(viewModel, lifecycleOwner)
         viewModel.eggCollectionList.observeForever(observer)
     }

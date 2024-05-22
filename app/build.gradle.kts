@@ -45,6 +45,7 @@ android {
 tasks.withType<Test> {
     extensions.configure(JacocoTaskExtension::class.java) {
         isIncludeNoLocationClasses = true
+        excludes = listOf("jdk.internal.*")
     }
 }
 
@@ -69,7 +70,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Add Mockito dependencies
-    testImplementation("org.mockito:mockito-core:3.12.4")
-    testImplementation("org.mockito:mockito-inline:3.12.4") // for mocking final classes
-    testImplementation("org.mockito:mockito-junit-jupiter:3.12.4")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline) // for mocking final classes
+    testImplementation(libs.mockito.junit.jupiter)
+    testImplementation(libs.androidx.core.testing)
 }
