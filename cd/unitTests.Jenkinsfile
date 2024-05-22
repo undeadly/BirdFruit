@@ -14,7 +14,7 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
     stages {
-        stage('Build') {
+        stage('Run Unit Tests') {
             steps {
                 sh ''' #!/bin/bash -xe
                        # Fix permissions for current folder so the docker user can access it
