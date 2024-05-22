@@ -1,3 +1,5 @@
+@Library("lookout-common") _
+
 pipeline {
     agent {
         node {
