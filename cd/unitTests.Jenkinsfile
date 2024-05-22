@@ -1,4 +1,7 @@
 pipeline {
+    triggers {
+        pollSCM('') // Enabling being build on Push
+    }
     agent {
         node {
             label 'docker.ubuntu18.mx.4xlarge'
