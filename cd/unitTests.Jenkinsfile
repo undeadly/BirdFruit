@@ -6,6 +6,9 @@ pipeline {
             label 'docker.ubuntu18.mx.4xlarge'
         }
     }
+    tools {
+        jdk "java-11-openjdk-amd64"
+    }
     options {
         timeout(time: 45, unit: 'MINUTES')
         buildDiscarder(logRotator(daysToKeepStr: '30'))
