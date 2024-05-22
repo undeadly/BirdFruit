@@ -1,6 +1,6 @@
 pipeline {
     triggers {
-        githubPush() // Enabling being build on Push
+        githubPush()
     }
     agent {
         node {
