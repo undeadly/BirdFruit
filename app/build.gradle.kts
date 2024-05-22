@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("jacoco")
 }
 
 android {
@@ -33,6 +34,25 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+
+tasks.withType<Test> {
+    extensions.configure(JacocoTaskExtension::class.java) {
+        isIncludeNoLocationClasses = true
+    }
+}
+
+tasks.register("jacocoTestReport", JacocoReport::class.java) {
+    dependsOn("testDebugUnitTest")
+
+
+    sourceDirectories.setFrom(files("src/main/java"))
+    classDirectories.setFrom(files("build/tmp/kotlin-classes/debug"))
 }
 
 dependencies {
@@ -43,6 +63,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.espresso.contrib)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -12,6 +12,7 @@ class NumberPickerDialog(private val listener: NumberPicker.OnValueChangeListene
         val numberPicker = NumberPicker(activity)
         numberPicker.minValue = 0
         numberPicker.maxValue = 100
+        numberPicker.value = 12
 
         return AlertDialog.Builder(activity)
             .setTitle("Choose number of eggs")
