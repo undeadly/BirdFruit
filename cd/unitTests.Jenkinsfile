@@ -1,7 +1,4 @@
 pipeline {
-    triggers {
-        githubPush()
-    }
     agent {
         node {
             label 'docker.ubuntu18.mx.4xlarge'
