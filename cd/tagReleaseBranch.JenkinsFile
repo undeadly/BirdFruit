@@ -14,7 +14,7 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
     stages {
-        stage('Create Release Branch') {
+        stage('Tag Release Build') {
             steps {
                 sh ''' #!/bin/bash -xe
                        # Fix permissions for current folder so the docker user can access it
@@ -33,7 +33,7 @@ pipeline {
                            -e "BUILD_NUMBER=${BUILD_NUMBER}" \\
                            --rm -v "$(pwd):/home/jenkins/application" \\
                            022103483154.dkr.ecr.us-west-2.amazonaws.com/android-platform:latest@sha256:$dockerHash \\
-                           sh -c "git checkout -b release/${BUILD_NUMBER} && git push origin release/${BUILD_NUMBER}"'''
+                           sh -c "git checkout release/${BUILD_NUMBER} && git tag release/${BUILD_NUMBER} && git push origin release/${BUILD_NUMBER}"'''
             }
         }
     }
