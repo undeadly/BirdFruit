@@ -13,6 +13,7 @@ mockitoJunitJupiter = "3.12.4"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
 espressoContrib = "3.5.1"
+grgit = "5.2.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,4 +34,5 @@ mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ajoberstar-grgit = { id = "org.ajoberstar.grgit.service", version.ref = "grgit" }
 

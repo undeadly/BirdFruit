@@ -1,6 +1,9 @@
+import org.ajoberstar.grgit.gradle.GrgitService
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ajoberstar.grgit)
     id("jacoco")
 }
 
@@ -55,6 +58,11 @@ tasks.register("jacocoTestReport", JacocoReport::class.java) {
 
     sourceDirectories.setFrom(files("src/main/java"))
     classDirectories.setFrom(files("build/tmp/kotlin-classes/debug"))
+}
+
+tasks.register("tag") {
+    val grGit = grgitService.service.get().grgit
+    println(grGit.log())
 }
 
 dependencies {

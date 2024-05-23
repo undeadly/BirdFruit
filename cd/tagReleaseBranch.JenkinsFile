@@ -15,17 +15,11 @@ pipeline {
     }
     stages {
         stage('Tag Release Build') {
+            environment {
+                GRGIT_USER = credentials("cd/cloudbees/${env.CI_ENVIRONMENT}/fa-spectre-token")
+            }
             steps {
-                sh '''#!/bin/bash -xe
-
-                def tag = "release/${BUILD_NUMBER}"
-
-                echo "about to get checkout ${tag}"
-                git checkout ${tag}
-                echo "about to create tag: ${tag}"
-                git tag ${tag}
-                echo "about to push tag: ${tag}"
-                git push origin ${tag}'''
+                gradleRun('tag', wrapper: true)
             }
         }
     }
