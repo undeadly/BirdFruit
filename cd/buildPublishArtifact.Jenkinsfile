@@ -25,12 +25,7 @@ pipeline {
                 }
             }
             steps {
-                stage('Checkout Scm') {
-                    steps {
-                        git(credentialsId: 'cd/cloudbees/staging/git-credentials', url: 'git@source.corp.lookout.com:cory-roy/BirdFruit.git', branch: ${VERSION_TAG})
-                    }
-                }
-
+                git(credentialsId: 'cd/cloudbees/staging/git-credentials', url: 'git@source.corp.lookout.com:cory-roy/BirdFruit.git', branch: ${VERSION_TAG})
             }
         }
         stage('Build Artifact') {
