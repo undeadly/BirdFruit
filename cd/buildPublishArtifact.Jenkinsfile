@@ -2,7 +2,7 @@
 
 pipeline {
     parameters (
-        string(name: 'VERSION_TAG', defaultValue: '', description: '''The tag to apply.''')
+        string(name: 'VERSION_TAG', defaultValue: 'master', description: '''The tag to apply.''')
     )
     agent {
         node {
@@ -17,6 +17,17 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
     stages {
+        stage('Checkout From Tag') {
+            when {
+                expression {
+                    return ${VERSION_TAG} != 'master';
+                }
+            }
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: ${VERSION_TAG} ]],
+                     userRemoteConfigs: [[url: 'https://source.corp.lookout.com/cory-roy/BirdFruit.git']]])
+            }
+        }
         stage('Build Artifact') {
             steps {
                 sh ''' #!/bin/bash -xe

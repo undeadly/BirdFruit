@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -xe
 
-                def tag = "release/${BUILD_NUMBER}"
+                def tag = "release/${VERSION_TAG}"
 
                 echo "about to get checkout -b ${tag}"
                 git checkout -b ${tag}

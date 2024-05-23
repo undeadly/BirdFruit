@@ -15,7 +15,6 @@ pipeline {
         stage('Trigger Spinnaker') {
             steps {
                 sh '''#!/bin/bash -xe
-                    ./gradlew writeVersionTag
 		        '''
             }
         }
