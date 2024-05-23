@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout From Tag') {
             when {
                 expression {
-                    return "${VERSION_TAG}" != 'main'
+                    return "${VERSION_TAG}" != '${#stage("Tag Build")["context"]["versionTag"]}'
                 }
             }
             steps {
