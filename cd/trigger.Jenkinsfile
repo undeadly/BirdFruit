@@ -1,6 +1,6 @@
 pipeline {
     parameters {
-        booleanParam(defaultValue: false, description: 'Should a release branch be created?', name: 'CREATE_RELEASE_BRANCH')
+        booleanParam(defaultValue: false, description: 'Should a release branch be created?', name: 'RELEASE_BUILD')
     }
     triggers {
         githubPush()
@@ -18,7 +18,7 @@ pipeline {
         stage('Trigger Spinnaker') {
             steps {
                 sh '''#!/bin/bash -xe
-                    echo "RELEASE_BUILD=${CREATE_RELEASE_BRANCH}" > spinnaker.properties
+                    echo "RELEASE_BUILD=${RELEASE_BUILD}" > spinnaker.properties
 		        '''
             }
         }
