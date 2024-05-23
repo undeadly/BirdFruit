@@ -16,8 +16,8 @@ pipeline {
     }
     stages {
         stage('Trigger Spinnaker') {
-            cleanWs(notFailBuild: true)
             steps {
+                cleanWs(notFailBuild: true)
                 sh '''#!/bin/bash -xe
                     echo "RELEASE_BUILD=${RELEASE_BUILD}" > spinnaker.properties
 		        '''
