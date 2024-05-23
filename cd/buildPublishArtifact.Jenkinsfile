@@ -13,7 +13,6 @@ pipeline {
         jdk "java-17-openjdk-amd64"
     }
     options {
-        cleanWs(notFailBuild: true)
         timeout(time: 45, unit: 'MINUTES')
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
@@ -31,6 +30,7 @@ pipeline {
         }
         stage('Build Artifact') {
             steps {
+                cleanWs(notFailBuild: true)
                 sh ''' #!/bin/bash -xe
                        # Fix permissions for current folder so the docker user can access it
                        chmod -R o+rw .

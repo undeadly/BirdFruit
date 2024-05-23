@@ -11,12 +11,12 @@ pipeline {
         }
     }
     options {
-        cleanWs(notFailBuild: true)
         timeout(time: 45, unit: 'MINUTES')
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
     stages {
         stage('Trigger Spinnaker') {
+            cleanWs(notFailBuild: true)
             steps {
                 sh '''#!/bin/bash -xe
                     echo "RELEASE_BUILD=${RELEASE_BUILD}" > spinnaker.properties
