@@ -24,7 +24,7 @@ pipeline {
                 echo "about to get checkout -b ${tag}"
                 git checkout -b ${tag}
                 echo "about to get push origin ${tag}"
-                git push origin ${tag}
+                git push origin ${tag}'''
 
             }
         }
