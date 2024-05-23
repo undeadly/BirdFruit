@@ -2,6 +2,7 @@
 
 pipeline {
     parameters {
+        booleanParam(name: 'IS_RELEASE_BUILD', defaultValue: false, description: 'Should a release branch be created?')
         string(name: 'VERSION_TAG', defaultValue: 'master', description: '''The tag to apply.''')
     }
     agent {
@@ -17,10 +18,11 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
     stages {
+        //Should checkout from the tag if this is a release build.
         stage('Checkout From Tag') {
             when {
                 expression {
-                    return ${VERSION_TAG} != 'master';
+                    return ${IS_RELEASE_BUILD}
                 }
             }
             steps {

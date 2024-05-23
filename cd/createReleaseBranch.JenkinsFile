@@ -23,7 +23,7 @@ pipeline {
 
                 def branch = "release/${VERSION_TAG}"
 
-                echo "about to get checkout -b ${VERSION_TAG}"
+                echo "about to get create branch ${branch}"
                 git checkout -b ${branch}
                 echo "about to get push origin ${branch}"
                 git push origin ${branch}'''

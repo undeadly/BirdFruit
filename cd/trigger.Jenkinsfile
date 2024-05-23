@@ -23,4 +23,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            step($class: 'ArtifactArchiver', artifacts: 'spinnaker.properties', allowEmptyArchive: false)
+        }
+    }
 }
