@@ -1,10 +1,16 @@
-import com.android.build.api.dsl.ApplicationDefaultConfig
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ajoberstar.grgit)
     id("jacoco")
+}
+
+fun getVersionTag():String {
+    val grGit = grgitService.service.get().grgit
+    if (System.getenv("VERSION_TAG").isNullOrEmpty()) {
+        return android.defaultConfig.versionName + "-" + grGit.head().abbreviatedId.toString()
+    }
+    return System.getenv("VERSION_TAG")
 }
 
 android {
@@ -19,6 +25,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        setProperty("archivesBaseName", "birdfruit-" + getVersionTag())
     }
 
     buildTypes {
@@ -38,7 +46,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 
     testOptions {
         unitTests.isIncludeAndroidResources = true
@@ -60,22 +67,27 @@ tasks.register("jacocoTestReport", JacocoReport::class.java) {
     classDirectories.setFrom(files("build/tmp/kotlin-classes/debug"))
 }
 
+tasks.register("writeVersionTag") {
+    File("spinnaker.properties").printWriter().use { out ->
+        out.println("versionTag=" + getVersionTag())
+    }
+}
+
 tasks.register("tag") {
     val grGit = grgitService.service.get().grgit
-    //val tagName = version
-    val tagName = "test"
-    println("Removing $tagName tag")
-    grGit.tag.remove() {
-        this.names = listOf(tagName)
-    }
+    val tagName = getVersionTag()
     println("Adding $tagName tag")
-    grGit.tag.add {
-        this.name = tagName
-    }
+    grGit.tag.add(mapOf(Pair("name", tagName)))
     println("Pushing $tagName tag")
-    grGit.push {
-        this.tags = true
-    }
+    grGit.push(mapOf("tags" to true))
+
+    /* Keeping this for testing temporarily
+    val tagName = "show"
+    println("Removing $tagName tag")
+    grGit.tag.remove(mapOf(Pair("names", listOf(tagName))))
+    println("Pushing $tagName tag")
+    grGit.push(mapOf(Pair("refsOrSpecs", listOf(":refs/tags/$tagName"))))
+    */
 }
 
 dependencies {
