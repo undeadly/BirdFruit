@@ -16,17 +16,16 @@ pipeline {
     stages {
         stage('Tag Release Build') {
             steps {
-                  sh ''' #!/bin/bash -xe
+                sh '''#!/bin/bash -xe
 
-                    def tag = "release/${BUILD_NUMBER}""
+                def tag = "release/${BUILD_NUMBER}"
 
-                    echo "about to get checkout ${tag}"
-                    git checkout ${tag}
-                    echo "about to create tag: ${tag}"
-                    git tag ${tag}
-                    echo "about to push tag: ${tag}"
-                    git push origin ${tag}'''
-                }
+                echo "about to get checkout ${tag}"
+                git checkout ${tag}
+                echo "about to create tag: ${tag}"
+                git tag ${tag}
+                echo "about to push tag: ${tag}"
+                git push origin ${tag}'''
             }
         }
     }

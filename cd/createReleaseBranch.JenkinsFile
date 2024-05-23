@@ -16,8 +16,7 @@ pipeline {
     stages {
         stage('Create Release Branch') {
             steps {
-
-              sh ''' #!/bin/bash -xe
+                sh '''#!/bin/bash -xe
 
                 def tag = "release/${BUILD_NUMBER}""
 
@@ -25,7 +24,6 @@ pipeline {
                 git checkout -b ${tag}
                 echo "about to get push origin ${tag}"
                 git push origin ${tag}'''
-
             }
         }
     }

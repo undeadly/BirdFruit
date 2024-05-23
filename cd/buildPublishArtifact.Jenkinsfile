@@ -49,7 +49,7 @@ pipeline {
                           "files": [
                             {
                               "pattern": "app/build/outputs/apk/debug/*.apk",
-                              "target": "lookout-apk-local/com/demo/birdfruit/android/debug"
+                              "target": "lookout-apk-local/com/demo/birdfruit/"
                             }
                          ]
                     }'''
