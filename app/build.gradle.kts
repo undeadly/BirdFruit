@@ -1,4 +1,4 @@
-import org.ajoberstar.grgit.gradle.GrgitService
+import com.android.build.api.dsl.ApplicationDefaultConfig
 
 plugins {
     alias(libs.plugins.android.application)
@@ -62,7 +62,20 @@ tasks.register("jacocoTestReport", JacocoReport::class.java) {
 
 tasks.register("tag") {
     val grGit = grgitService.service.get().grgit
-    println(grGit.log())
+    //val tagName = version
+    val tagName = "test"
+    println("Removing $tagName tag")
+    grGit.tag.remove() {
+        this.names = listOf(tagName)
+    }
+    println("Adding $tagName tag")
+    grGit.tag.add {
+        this.name = tagName
+    }
+    println("Pushing $tagName tag")
+    grGit.push {
+        this.tags = true
+    }
 }
 
 dependencies {
