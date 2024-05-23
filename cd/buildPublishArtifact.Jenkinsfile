@@ -2,8 +2,7 @@
 
 pipeline {
     parameters {
-        booleanParam(name: 'IS_RELEASE_BUILD', defaultValue: false, description: 'Should a release branch be created?')
-        string(name: 'VERSION_TAG', defaultValue: 'master', description: '''The tag to apply.''')
+        string(name: 'VERSION_TAG', defaultValue: 'main', description: '''The tag to apply.''')
     }
     agent {
         node {
@@ -22,7 +21,7 @@ pipeline {
         stage('Checkout From Tag') {
             when {
                 expression {
-                    return ${IS_RELEASE_BUILD}
+                    return env.VERSION_TAG != 'main';
                 }
             }
             steps {
