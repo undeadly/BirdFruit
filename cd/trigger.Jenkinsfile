@@ -11,6 +11,7 @@ pipeline {
         }
     }
     options {
+        cleanWs(notFailBuild: true)
         timeout(time: 45, unit: 'MINUTES')
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }

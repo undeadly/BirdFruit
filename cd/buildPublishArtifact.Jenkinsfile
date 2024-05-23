@@ -13,6 +13,7 @@ pipeline {
         jdk "java-17-openjdk-amd64"
     }
     options {
+        cleanWs(notFailBuild: true)
         timeout(time: 45, unit: 'MINUTES')
         buildDiscarder(logRotator(daysToKeepStr: '30'))
     }
