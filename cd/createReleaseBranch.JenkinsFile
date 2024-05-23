@@ -1,9 +1,9 @@
 @Library("lookout-common") _
 
 pipeline {
-    parameters (
+    parameters {
         string(name: 'VERSION_TAG', defaultValue: '', description: '''Tag to use for branching.''')
-    )
+    }
     agent {
         node {
             label 'docker.ubuntu18.mx.4xlarge'
@@ -21,12 +21,12 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -xe
 
-                def tag = "release/${VERSION_TAG}"
+                def branch = "release/${VERSION_TAG}"
 
-                echo "about to get checkout -b ${tag}"
-                git checkout -b ${tag}
-                echo "about to get push origin ${tag}"
-                git push origin ${tag}'''
+                echo "about to get checkout -b ${VERSION_TAG}"
+                git checkout -b ${branch}
+                echo "about to get push origin ${branch}"
+                git push origin ${branch}'''
             }
         }
     }

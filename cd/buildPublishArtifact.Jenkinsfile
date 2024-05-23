@@ -1,9 +1,9 @@
 @Library("lookout-common") _
 
 pipeline {
-    parameters (
+    parameters {
         string(name: 'VERSION_TAG', defaultValue: 'master', description: '''The tag to apply.''')
-    )
+    }
     agent {
         node {
             label 'docker.ubuntu18.mx.4xlarge'
