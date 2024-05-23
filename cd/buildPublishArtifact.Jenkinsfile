@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout From Tag') {
             when {
                 expression {
-                    return env.VERSION_TAG != 'main'
+                    return ${VERSION_TAG} != 'main'
                 }
             }
             steps {
