@@ -21,12 +21,16 @@ pipeline {
         stage('Checkout From Tag') {
             when {
                 expression {
-                    return env.VERSION_TAG != 'main';
+                    return env.VERSION_TAG != 'main'
                 }
             }
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: ${VERSION_TAG} ]],
-                     userRemoteConfigs: [[url: 'https://source.corp.lookout.com/cory-roy/BirdFruit.git']]])
+                stage('Checkout Scm') {
+                    steps {
+                        git(credentialsId: 'cd/cloudbees/staging/git-credentials', url: 'git@source.corp.lookout.com:cory-roy/BirdFruit.git', branch: ${VERSION_TAG})
+                    }
+                }
+
             }
         }
         stage('Build Artifact') {
