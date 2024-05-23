@@ -30,7 +30,6 @@ pipeline {
         }
         stage('Build Artifact') {
             steps {
-                cleanWs(notFailBuild: true)
                 sh ''' #!/bin/bash -xe
                        # Fix permissions for current folder so the docker user can access it
                        chmod -R o+rw .

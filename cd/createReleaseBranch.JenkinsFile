@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash -xe
 
-                def branch = "release/${VERSION_TAG}"
+                branch="release/${VERSION_TAG}"
 
                 echo "about to get create branch ${branch}"
                 git checkout -b ${branch}
