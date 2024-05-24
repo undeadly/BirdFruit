@@ -1,6 +1,6 @@
 pipeline {
     parameters {
-        booleanParam(name: 'RELEASE_BUILD', defaultValue: true, description: 'Should a release branch be created?')
+        booleanParam(name: 'RELEASE_BUILD', defaultValue: false, description: 'Should a release branch be created?')
     }
     triggers {
         githubPush()

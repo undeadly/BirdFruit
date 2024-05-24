@@ -6,9 +6,10 @@ plugins {
 }
 
 fun getVersionTag():String {
-    val grGit = grgitService.service.get().grgit
     if (System.getenv("VERSION_TAG").isNullOrEmpty()) {
+        val grGit = grgitService.service.get().grgit
         return android.defaultConfig.versionName + "-" + grGit.head().abbreviatedId.toString()
+        grGit.close()
     }
     return System.getenv("VERSION_TAG")
 }
@@ -80,6 +81,7 @@ tasks.register("tag") {
     grGit.tag.add(mapOf(Pair("name", tagName)))
     println("Pushing $tagName tag")
     grGit.push(mapOf("tags" to true))
+    grGit.close()
 
     /* Keeping this for testing temporarily
     val tagName = "show"
