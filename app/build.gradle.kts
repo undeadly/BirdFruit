@@ -94,8 +94,10 @@ tasks.register("branch") {
     val grGit = grgitService.service.get().grgit
     val commitId = getVersionTag().split("-")[1]
     val branchName = "release/" + getVersionTag()
+    println("Checking out $commitId as branch: $branchName")
     grGit.checkout(mapOf(Pair("branch", "$branchName"),Pair("createBranch", true),Pair("startPoint", commitId)))
-    grGit.push(mapOf(Pair("remote", "https://source.corp.lookout.com/cory-roy/BirdFruit.git"),Pair("refsOrSpecs", listOf(":refs/heads/$branchName"))))
+    println("Pushing branch: $branchName")
+    grGit.push(mapOf(Pair("remote", "git@source.corp.lookout.com:cory-roy/BirdFruit.git"),Pair("refsOrSpecs", listOf("HEAD:refs/heads/$branchName"))))
 }
 
 dependencies {
