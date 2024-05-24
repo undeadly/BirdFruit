@@ -18,15 +18,13 @@ pipeline {
     }
     stages {
         stage('Create Release Branch') {
+            environment {
+                GRGIT_USER = credentials("cd/cloudbees/${env.CI_ENVIRONMENT}/fa-spectre-token")
+            }
             steps {
                 sh '''#!/bin/bash -xe
-
-                branch="release/${VERSION_TAG}"
-
-                echo "about to get create branch ${branch}"
-                git checkout -b ${branch}
-                echo "about to get push origin ${branch}"
-                git push origin ${branch}'''
+                      ./gradlew branch
+                   '''
             }
         }
     }

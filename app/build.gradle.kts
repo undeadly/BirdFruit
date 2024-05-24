@@ -90,6 +90,14 @@ tasks.register("tag") {
     */
 }
 
+tasks.register("branch") {
+    val grGit = grgitService.service.get().grgit
+    val branchName = "release/" + getVersionTag()
+    println("Branching $branchName")
+    grGit.branch.add(mapOf(Pair("name", branchName)))
+    grGit.push(mapOf(Pair("remote", "https://source.corp.lookout.com/cory-roy/BirdFruit.git"),Pair("refsOrSpecs", listOf(":refs/heads/$branchName"))))
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
