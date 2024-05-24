@@ -1,0 +1,35 @@
+@Library("lookout-common") _
+
+pipeline {
+    agent {
+        node {
+            label 'docker.ubuntu18.mx.4xlarge'
+        }
+    }
+    tools {
+        jdk "java-17-openjdk-amd64"
+    }
+    options {
+        timeout(time: 10, unit: 'MINUTES')
+        buildDiscarder(logRotator(daysToKeepStr: '30'))
+    }
+    stages {
+        stage('Tag Release Build') {
+            environment {
+                GRGIT_USER = credentials("cd/cloudbees/${env.CI_ENVIRONMENT}/fa-spectre-token")
+            }
+            steps {
+                sh '''#!/bin/bash -xe
+                      ./gradlew writeVersionTag
+                      ./gradlew tag
+                   '''
+            }
+        }
+    }
+
+    post {
+        always {
+            step($class: 'ArtifactArchiver', artifacts: 'spinnaker.properties', allowEmptyArchive: false)
+        }
+    }
+}
