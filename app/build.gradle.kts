@@ -6,12 +6,13 @@ plugins {
 }
 
 fun getVersionTag():String {
+    var versionTag = System.getenv("VERSION_TAG")
     if (System.getenv("VERSION_TAG").isNullOrEmpty()) {
         val grGit = grgitService.service.get().grgit
-        return android.defaultConfig.versionName + "-" + grGit.head().abbreviatedId.toString()
+        versionTag = android.defaultConfig.versionName + "-" + grGit.head().abbreviatedId.toString()
         grGit.close()
     }
-    return System.getenv("VERSION_TAG")
+    return versionTag
 }
 
 android {
